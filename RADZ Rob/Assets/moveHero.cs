@@ -18,6 +18,8 @@ public class moveHero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetBool("isRunning", false);
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += transform.forward * Time.deltaTime;
@@ -26,5 +28,21 @@ public class moveHero : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
             transform.Rotate(Vector3.up, 30*Time.deltaTime);
+    }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject.name);
+
+
+      
+        footballScript myFootball = collision.gameObject.GetComponent<footballScript>();
+        if (myFootball != null)
+        {
+            myFootball.Kick();
+        }
+
     }
 }
